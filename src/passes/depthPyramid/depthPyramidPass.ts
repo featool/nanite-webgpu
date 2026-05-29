@@ -59,6 +59,7 @@ export class DepthPyramidPass {
       label: labelShader(DepthPyramidPass),
       code: SHADER_CODE(),
     });
+        console.log(SHADER_CODE())
     return device.createComputePipeline({
       label: labelPipeline(DepthPyramidPass),
       layout: 'auto',

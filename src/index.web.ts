@@ -29,11 +29,11 @@ import { downloadDrawnImpostorsBuffer } from './scene/naniteBuffers/drawnImposto
 import { ObjectLoadingProgressCb } from './scene/load/types.ts';
 import { applySearchParams } from './sys_web/searchParams.ts';
 
-// const SCENE_FILE: SceneName = 'bunnySingle';
+const SCENE_FILE: SceneName = 'bunnySingle';
 // const SCENE_FILE: SceneName = 'bunnyRow';
 // const SCENE_FILE: SceneName = 'bunny1b';
 // const SCENE_FILE: SceneName = 'bunny';
-const SCENE_FILE: SceneName = 'jinxCombined'; // jinx
+// const SCENE_FILE: SceneName = 'jinxCombined'; // jinx
 // const SCENE_FILE: SceneName = 'lucySingleJson';
 // const SCENE_FILE: SceneName = 'lucy1b';
 // const SCENE_FILE: SceneName = 'dragon';
@@ -124,6 +124,7 @@ const SCENE_FILE: SceneName = 'jinxCombined'; // jinx
     renderer.updateCamera(deltaTime, inputState);
 
     // record commands
+    // 1. 第一个WebGPU API: createCommandEncoder
     const cmdBuf = device.createCommandEncoder(mainCmdBufDesc);
     const screenTexture = canvasResizeSystem.getScreenTextureView();
     renderer.cmdRender(cmdBuf, scene, screenTexture);

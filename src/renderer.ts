@@ -157,6 +157,7 @@ export class Renderer {
       depthPyramidSampler: this.depthPyramidPass.depthSampler,
     };
 
+    // 写出unforms
     this.renderUniformBuffer.update(ctx);
 
     if (CONFIG.displayMode === 'dbg-lod') {

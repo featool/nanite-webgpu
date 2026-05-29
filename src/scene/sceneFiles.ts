@@ -44,7 +44,7 @@ export function getSceneObjectDef(name: SceneObjectName) {
 }
 
 export const SCENES = {
-  bunnySingle: [sceneModel('bunny', 1, 1)],
+  bunnySingle: [sceneModel('bunny', 4, 1)],
   bunny: [sceneModel('bunny')],
   bunnyRow: [sceneModel('bunny', 32768, 1)],
   bunny1b: [sceneModel('bunny', 500, 500, 0.8)],

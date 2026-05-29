@@ -39,7 +39,9 @@ export class CullInstancesPass {
     const { cmdBuf, profiler } = ctx;
 
     // forget draws from previous frame
+    // clear bunny-nanite-drawn-instances-ids
     naniteObject.buffers.cmdClearDrawnInstancesDispatchParams(cmdBuf);
+    // clear bunny-nanite-billboards
     naniteObject.buffers.cmdClearDrawnImpostorsParams(cmdBuf);
 
     const computePass = cmdBuf.beginComputePass({
@@ -61,6 +63,7 @@ export class CullInstancesPass {
       naniteObject.instancesCount,
       SHADER_PARAMS.maxWorkgroupsY
     );
+
     const workgroupsCntY = 1;
     const workgroupsCntZ = 1;
 

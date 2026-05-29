@@ -17,6 +17,7 @@ export function initCanvasResizeSystem(
 
   // Has nothing to do with resize actually.
   const getScreenTextureView = (): GPUTextureView =>
+    // 2. 第二个、三个WebGPU API：getCurrentTexture、createView
     canvasContext.getCurrentTexture().createView();
 
   return {

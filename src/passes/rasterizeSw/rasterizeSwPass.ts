@@ -25,6 +25,7 @@ export class RasterizeSwPass {
       label: labelShader(RasterizeSwPass),
       code: SHADER_CODE(),
     });
+    
     this.pipeline = device.createComputePipeline({
       label: labelPipeline(RasterizeSwPass),
       layout: 'auto',
@@ -35,8 +36,11 @@ export class RasterizeSwPass {
     });
   }
 
+
+
   /** Clears to 0. We cannot select a number */
   clearFramebuffer(ctx: PassCtx) {
+    // clear rasterize-sw
     cmdClearWholeBuffer(ctx.cmdBuf, this.resultBuffer);
   }
 

@@ -163,6 +163,7 @@ export class RenderUniformsBuffer {
     if (offsetBytes !== RenderUniformsBuffer.BUFFER_SIZE) {
       throw new Error(`Invalid write to RenderUniformsBuffer. Buffer has ${RenderUniformsBuffer.BUFFER_SIZE}bytes, but tried to write ${offsetBytes} bytes.`); // prettier-ignore
     }
+    // 3. WebGPU API：writeBuffer： niforms-buffer
     device.queue.writeBuffer(this.gpuBuffer, 0, this.data, 0, offsetBytes);
   }
 
