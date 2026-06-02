@@ -49,7 +49,7 @@ export class NaniteObjectBuffers {
   // buffers that hold per-frame data
 
   /** GPU-flow: Result of instance culling. Holds 1 dispatch indirect, object bounding sphere, and `Array<tfxId>` */
-  public readonly drawnInstancesBuffer: GPUBuffer = undefined!;
+  public readonly _drawnInstancesParamsBuffer: GPUBuffer = undefined!;
   /** GPU-flow: Draw params and instanceIds for billboards. Holds 1 draw indirect and `Array<tfxId>` */
   public readonly drawnImpostorsBuffer: GPUBuffer = undefined!;
   /** GPU-flow: [Hardware+Software rasterizing] Temporary structure between passes. Holds:
@@ -96,7 +96,7 @@ export class NaniteObjectBuffers {
       allWIPMeshlets,
       instanceCount
     );
-    this.drawnInstancesBuffer = createDrawnInstanceIdsBuffer(
+    this._drawnInstancesParamsBuffer = createDrawnInstanceIdsBuffer(
       device,
       name,
       allWIPMeshlets.length,
@@ -205,25 +205,27 @@ export class NaniteObjectBuffers {
   // Drawn instances
 
   cmdClearDrawnInstancesDispatchParams(cmdBuf: GPUCommandEncoder) {
-    cmdBuf.clearBuffer(this.drawnInstancesBuffer, 0, 4 * BYTES_U32);
+    cmdBuf.clearBuffer(this._drawnInstancesParamsBuffer, 0, 4 * BYTES_U32);
   }
 
   bindDrawnInstancesParams = (bindingIdx: number): GPUBindGroupEntry => ({
     binding: bindingIdx,
     resource: {
-      buffer: this.drawnInstancesBuffer,
+      buffer: this._drawnInstancesParamsBuffer,
       offset: 0,
       size: BYTES_DRAWN_INSTANCES_PARAMS,
     },
   });
 
-  bindDrawnInstancesList = (bindingIdx: number): GPUBindGroupEntry => ({
+  bindDrawnInstancesList = (bindingIdx: number): GPUBindGroupEntry => {
+    console.log(`BYTES_DRAWN_INSTANCES_PARAMS = ${BYTES_DRAWN_INSTANCES_PARAMS}`)
+   return {
     binding: bindingIdx,
     resource: {
-      buffer: this.drawnInstancesBuffer,
+      buffer: this._drawnInstancesParamsBuffer,
       offset: BYTES_DRAWN_INSTANCES_PARAMS,
     },
-  });
+  }};
 
   ///////////////////////
   // Drawn impostors

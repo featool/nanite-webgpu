@@ -56,6 +56,7 @@ export function createDrawnInstanceIdsBuffer(
 ): GPUBuffer {
   const dataSize = BYTES_U32 * instanceCount;
 
+  // 创建_drawnInstancesParams, 前256个字节是CullParams，后面是_drawnInstancesList
   const bufferGpu = device.createBuffer({
     label: `${name}-nanite-drawn-instances-ids`,
     size: BYTES_DRAWN_INSTANCES_PARAMS + dataSize,

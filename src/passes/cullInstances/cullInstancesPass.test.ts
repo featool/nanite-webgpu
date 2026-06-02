@@ -64,7 +64,7 @@ Deno.test('CullInstancesPass', async () => {
 
   // mock nanite buffers
   const mockBuffers = mockNaniteObjectBuffers();
-  mockBuffers.drawnInstancesBuffer = bufferGpu;
+  mockBuffers._drawnInstancesParamsBuffer = bufferGpu;
   mockBuffers.drawnImpostorsBuffer = billboardImpostorsBuffer;
 
   // nanite object

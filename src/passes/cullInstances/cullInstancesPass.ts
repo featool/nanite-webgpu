@@ -50,11 +50,14 @@ export class CullInstancesPass {
     });
 
     const pipeline = this.pipeline;
+    // 绑定instance裁剪所需的资源
     const bindings = this.bindingsCache.getBindings(naniteObject.name, () =>
       this.createBindings(ctx, pipeline, naniteObject)
     );
 
+    // 设置管线
     computePass.setPipeline(pipeline);
+    // 绑定资源，都绑定group(0)上
     computePass.setBindGroup(0, bindings);
 
     // dispatch params
@@ -69,12 +72,14 @@ export class CullInstancesPass {
 
     // dispatch
     // console.log(`${CullInstancesPass.NAME} dispatch(${workgroupsCntX}, ${workgroupsCntY}, ${workgroupsCntZ})`); // prettier-ignore
+    // 启动线程进行计算
     computePass.dispatchWorkgroups(
       workgroupsCntX,
       workgroupsCntY,
       workgroupsCntZ
     );
 
+    // 管线结束
     computePass.end();
   }
 
@@ -101,15 +106,22 @@ export class CullInstancesPass {
       [
         globalUniforms.createBindingDesc(b.renderUniforms),
         naniteObject.bindInstanceTransforms(b.instancesTransforms),
-        buffers.bindDrawnInstancesParams(b.dispatchIndirectParams),
+        // 绑定_drawnInstancesParams
+        buffers.bindDrawnInstancesParams(b.dispatchIndirectParams), 
+        // 绑定_drawnInstancesList
         buffers.bindDrawnInstancesList(b.drawnInstanceIdsResult),
+        // 绑定_drawnImpostorsParams
         buffers.bindDrawnImpostorsParams(b.billboardsParams),
+        // 绑定_drawnImpostorsList
         buffers.bindDrawnImpostorsList(b.billboardsIdsResult),
         {
           binding: b.depthPyramidTexture,
           resource: prevFrameDepthPyramidTexture,
         },
-        { binding: b.depthSampler, resource: depthPyramidSampler },
+        { 
+          binding: b.depthSampler, 
+          resource: depthPyramidSampler 
+        },
       ]
     );
   };

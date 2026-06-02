@@ -81,7 +81,8 @@ export class CullMeshletsPass {
 
     const computePass = cmdBuf.beginComputePass({
       label: CullMeshletsPass.NAME,
-      timestampWrites: profiler?.createScopeGpu(CullMeshletsPass.NAME),
+      timestampWrites: profiler?.createScopeGpu(CullMeshletsPass.NAME), // 为这个 compute pass 配置 GPU 时间戳查询，
+      // 用于精确测量该 pass 在 GPU 上的执行耗时
     });
 
     if (CONFIG.cullingInstances.enabled) {
@@ -187,7 +188,7 @@ export class CullMeshletsPass {
 
     // dispatch
     computePass.dispatchWorkgroupsIndirect(
-      naniteObject.buffers.drawnInstancesBuffer,
+      naniteObject.buffers._drawnInstancesParamsBuffer,
       0
     );
   }

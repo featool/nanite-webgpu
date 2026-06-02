@@ -138,7 +138,7 @@ function updateSceneStats(
     meshletsDataBytes += naniteObj.buffers.meshletsDataBuffer.size;
     instancesTfxBytes += naniteObj.instances.transformsBuffer.size;
     // drawn
-    drawnInstancesBytes += naniteObj.buffers.drawnInstancesBuffer.size;
+    drawnInstancesBytes += naniteObj.buffers._drawnInstancesParamsBuffer.size;
     drawnImpostorsBytes += naniteObj.buffers.drawnImpostorsBuffer.size;
     drawnMeshletsBytes += naniteObj.buffers.drawnMeshletsBuffer.size;
   }
